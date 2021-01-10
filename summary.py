@@ -30,7 +30,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk import download
 
-download('wordnet', quiet=True)
+download('wordnet', quiet=True) # For Lemmatizer
 
 def _create_frequency_table(text_string) -> dict:
 
