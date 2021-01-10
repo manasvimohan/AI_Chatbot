@@ -22,8 +22,10 @@ About this file:
 
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from nltk import pos_tag, download
 
 def cos_sim(X,Y):
+
     # Word Tokenization
     X_list = word_tokenize(X)
     Y_list = word_tokenize(Y)
@@ -57,6 +59,34 @@ def cos_sim(X,Y):
     print("similarity: ", cosine)
     return cosine
 
-X = "I love horror movies"
-Y = "Lights out is a horror movie"
-cosine = cos_sim(X,Y)
+import wikipedia
+sw = stopwords.words('english')
+user_input = 'how many stars in the sky'
+
+user_input_list = word_tokenize(user_input)
+user_input_set = {w for w in user_input_list if not w in sw}
+
+from textblob import TextBlob
+download('brown', quiet=True)
+blob = TextBlob(user_input)
+nouns = blob.noun_phrases
+print(nouns)
+
+download('averaged_perceptron_tagger', quiet=True) # For Nouns
+tagged = pos_tag(user_input_list)
+
+i=0
+while i<len(tagged):
+    if tagged[i][1] == 'NNP':
+        topic = tagged[i][0]
+        i+=1
+    else:
+        i+=1
+        pass
+print(topic)
+
+# topic_list = wikipedia.search(topic)
+# print(topic_list)
+# X = "I love horror movies"
+# Y = "Lights out is a horror movie"
+# cosine = cos_sim(X,Y)
